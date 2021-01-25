@@ -22,19 +22,31 @@ export default {
     };
   },
   methods: {
-    login: function() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(
-          (user) => {
-            this.email = user.user.email;
-            this.$router.replace("profile");
-          },
-          (err) => {
-            alert("Oops. " + err.message);
-          }
-        );
+    // login: function() {
+    //   firebase
+    //     .auth()
+    //     .signInWithEmailAndPassword(this.email, this.password)
+    //     .then(
+    //       (user) => {
+    //         this.email = user.user.email;
+    //         this.$router.replace("profile");
+    //       },
+    //       (err) => {
+    //         alert("Oops. " + err.message);
+    //       }
+    //     );
+    // },
+    async login() {
+      try {
+        const user = await firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password);
+        if (user) {
+          this.$router.replace("profile");
+        }
+      } catch (error) {
+        throw alert("Oops. " + error.message);
+      }
     },
   },
 };

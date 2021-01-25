@@ -4,7 +4,7 @@ import Router from 'vue-router';
 
 import Login from '@/components/Login';
 import SignUp from '@/components/SignUp';
-import Profile from '@/components/Profile';
+import Chat from '@/components/Chat';
 
 Vue.use(Router);
 
@@ -29,9 +29,9 @@ const router = new Router({
             component: SignUp
         },
         {
-            path: '/profile',
-            name: 'Profile',
-            component: Profile,
+            path: '/chat',
+            name: 'Chat',
+            component: Chat,
             meta: {
                 requiresAuth: true
             }
@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
     if (requiresAuth && !currentUser) next('login');
-    else if (!requiresAuth && currentUser) next('profile');
+    else if (!requiresAuth && currentUser) next('Chat');
     else next();
 });
 
