@@ -10,6 +10,8 @@
 
 <script>
 import firebase from "firebase";
+import Vue from "vue";
+
 export default {
   name: "signUp",
   data() {
@@ -19,19 +21,15 @@ export default {
     };
   },
   methods: {
-    signUp: function() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
-          (userCredential) => {
-            console.log(userCredential);
-            this.$router.replace("login");
-          },
-          (err) => {
-            alert("Oops. " + err.message);
-          }
-        );
+    async signUp() {
+      try {
+        await firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password);
+        this.$router.replace("login");
+      } catch (error) {
+        Vue.toasted.show(error.message).goAway(3000);
+      }
     },
   },
 };

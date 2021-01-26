@@ -13,6 +13,8 @@
 
 <script>
 import firebase from "firebase";
+import Vue from "vue";
+
 export default {
   name: "login",
   data() {
@@ -22,30 +24,14 @@ export default {
     };
   },
   methods: {
-    // login: function() {
-    //   firebase
-    //     .auth()
-    //     .signInWithEmailAndPassword(this.email, this.password)
-    //     .then(
-    //       (user) => {
-    //         this.email = user.user.email;
-    //         this.$router.replace("profile");
-    //       },
-    //       (err) => {
-    //         alert("Oops. " + err.message);
-    //       }
-    //     );
-    // },
     async login() {
       try {
-        const user = await firebase
+        await firebase
           .auth()
           .signInWithEmailAndPassword(this.email, this.password);
-        if (user) {
-          this.$router.replace("profile");
-        }
+        this.$router.replace("chat");
       } catch (error) {
-        throw alert("Oops. " + error.message);
+        Vue.toasted.show(error.message).goAway(3000);
       }
     },
   },

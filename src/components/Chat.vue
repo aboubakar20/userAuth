@@ -7,24 +7,18 @@
 
 <script>
 import firebase from "firebase";
+import Vue from "vue";
+
 export default {
   name: "profile",
   components: {},
   methods: {
-    // logout: function() {
-    //   firebase
-    //     .auth()
-    //     .signOut()
-    //     .then(() => {
-    //       this.$router.replace("login");
-    //     });
-    // },
     async logout() {
       try {
         await firebase.auth().signOut();
         this.$router.replace("login");
       } catch (error) {
-        throw alert("Oops. " + error.message);
+        Vue.toasted.show(error.message).goAway(3000);
       }
     },
   },

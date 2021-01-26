@@ -2,10 +2,11 @@ import Vue from 'vue'
 import firebase from 'firebase';
 import App from './App.vue'
 import router from './router';
+import Toasted from 'vue-toasted';
 
 Vue.config.productionTip = false
 
-
+Vue.use(Toasted)
 let app = '';
 const firebaseConfig = {
   apiKey: "AIzaSyCUZSToWdRzdUNwiy82bmORPOeKTI0vOtw",

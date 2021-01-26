@@ -9,6 +9,7 @@ import Chat from '@/components/Chat';
 Vue.use(Router);
 
 const router = new Router({
+    mode: 'history',
     routes: [
         {
             path: '*',
